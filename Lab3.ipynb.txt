@@ -1,0 +1,52 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "\n",
+    "1. Write a program that takes as input 5 integer numbers and outputs the largest even number\n",
+    "2. Print odd numbers from 0-100 using the range function and its arguments.\n",
+    "3. Let *s* be a string that contains a sequence of decimal numbers separated by commas, e.g., *s = '1.23,2.4,3.123'*. Write a program that prints the sum of the numbers in *s*. Keep in mind the type of numbers these are (not `int`!).\n",
+    "4. Can you write the exhaustive enumeration program (second one) which contains `while` loop using a `for` loop instead? It should print out the right answer or indicate that a perfect cube doesn't exist.\n",
+    "5. The function `split` in Python will automatically split a given string by a delimiter (by default, this is space). For example, a string such as `I grew a ficus tree` gets split into its individual elements `'I', 'grew','a', 'ficus','tree'`. Can you write a program that implements the split function using loops and conditionals? (obviously, you cannot use the split() function itself). Your expected output will simply be a string with the individual words separated by commas e.g. `I,grew,a,ficus,tree`. For the moment, the program only needs to work on a sentence with words separated by space.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

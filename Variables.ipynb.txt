@@ -1,0 +1,404 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Introduction\n",
+    "\n",
+    "(Primary reference: John Guttag, Chapter 2)  \n",
+    "\n",
+    "How do you write programs to solve a problem ? This question is one we hope to answer in this class. While Python will be the primary *mode* by which we answer this question, by no means is this the only way. Any other language can also be used to do the same. \n",
+    "\n",
+    "Python has some advantages over other languages\n",
+    "\n",
+    "* general purpose programming language\n",
+    "* many useful libraries provide extended functionality\n",
+    "* relatively easy to learn\n",
+    "\n",
+    "Python was created by Guido von Rossum in 1991 and is maintained by the Python Software Foundation. It was designed to be clean and readable, and over the years has become the fastest growing programming language (Source: Stack Overflow Developer Survey 2019). Python 3 was released at the end of 2008, and we will use this version primarily for class.\n",
+    "\n",
+    "A python *program* or *script* contains a sequence of definitions and commands. These are evaluated and executed by the Python intepreter in a *shell*.\n",
+    "\n",
+    "Below is a command/statement in Python\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('This is the new normal')\n",
+    "print('2020 hasn\\'t ended yet')\n",
+    "print('a tale,','told by an idiot, full of sound and fury')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Like the Unix commands that you saw, the `print` function takes one (or more) arguments separated by commas and prints them, separated by space. Note that if you are using an apostrophe within the print command, it will need to be escaped such that it is not interpreted as the closing quote for the argument of the print function."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Objects, Expressions and Numerical Types\n",
+    "\n",
+    "\n",
+    "The core of what Python programs manipulate consists of **objects**. \n",
+    "\n",
+    "Every object has a **type** that delimits the type of things that programs can do with it.\n",
+    "\n",
+    "\n",
+    "1. Scalar types (indivisible)\n",
+    "\n",
+    "2. Non-scalar types (have internal structure)\n",
+    "\n",
+    "In the first couple weeks of this class, we will be dealing primarily with scalar types, then we will go on to non-scalar types. \n",
+    "\n",
+    "Four types of scalar objects\n",
+    "\n",
+    "   * `int` represents integers, e.g. 5, 8000, -4\n",
+    "   * `float` represents real numbers, these will usually contain decimal point e.g. 4.5, -77.9. Internally, such values are represented differently from `int`  \n",
+    "   * `bool` has values `True` and `False`\n",
+    "   * `None` is a type with a single value\n",
+    "        \n",
+    "\n",
+    "We can combine objects to form different types of **expressions** with the aid of **operators**\n",
+    "\n",
+    " \n",
+    "* a+b : sum \n",
+    "* a-b : difference\n",
+    "* a*b : product\n",
+    "* a/b : floating point division \n",
+    "* a\\*\\*b: a to the power of b\n",
+    "* == : equal\n",
+    "* != : not equal\n",
+    "* \\>, \\>= : greater than, at most\n",
+    "* \\<, \\<= : less than, at least\n",
+    "\n",
+    "Python makes a distinction between integer division and floating point division. Integer division represented as `a\\\\b` ignores the remainder of division (if any). Floating point division will provide a decimal point answer. Hence `6\\\\4 = 1` and `6\\4 = 1.5`\n",
+    "\n",
+    "\n",
+    "Try out the following expressions:-\n",
+    "`3>5`\n",
+    "`4**5`\n",
+    "`4==4`\n",
+    "\n",
+    "The usual PEMDAS rules apply to the order of evaluation of expressions. `x+y*2` will evaluate the multiplication first and then the addition."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# try out some expressions with operators here\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Variables and Assignment\n",
+    "\n",
+    "\n",
+    "Variables help us to associate names with objects.\n",
+    "\n",
+    "`pi = 3`  \n",
+    "`radius = 11`  \n",
+    "`area = pi * (radius**2)`  \n",
+    "\n",
+    "Note that `=` is an **assignment** operator- not equality! It has a different meaning within Python\n",
+    "\n",
+    "As a first step variables `pi`, `radius` and `area` are **bound** to different objects of type `int` (Why?)\n",
+    "\n",
+    "\n",
+    "![bind](bind1.png)\n",
+    "\n",
+    "\n",
+    "Now if I re-assign the variable radius to something else-\n",
+    "`radius = 20`\n",
+    "\n",
+    "Then, Python will just **re-bind** the variable to another object\n",
+    "Now, if `pi = 3.14159`, again `pi` will re-bind to another object type, this time a `float`. But there will be no effect on the variable name.\n",
+    "\n",
+    "\n",
+    "    A name in Python is *just* a name.\n",
+    "\n",
+    "Other languages can use different syntax to represent objects of different types e.g strings and integers, but Python does not.\n",
+    "\n",
+    "However!! Names do matter, and one of the maxims of Python is `Readability counts`. And it really does, especially when you want your clarity in the code that you write, and also when you would like others to understand what you have done.\n",
+    "\n",
+    "`x = 3`  \n",
+    "`y = 11`  \n",
+    "`z = x*(y**2)`  \n",
+    "\n",
+    "\n",
+    "\n",
+    "`pi = 3`  \n",
+    "`radius = 11`  \n",
+    "`area = pi * (radius**2)`  \n",
+    "\n",
+    "If you look at both these pieces of code, which one will make more sense when you revisit it after 6 months?\n",
+    "\n",
+    "It's also a good idea to add comments into code. Comments are indicated by the # sign and are not interpreted as Python statements. \n",
+    "\n",
+    "\n",
+    "`pi = 3`  \n",
+    "`radius = 11`  \n",
+    "`#formula for the area of a circle`  \n",
+    "`area = pi * (radius**2)`  \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# try assigning some objects to variables below\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Strings\n",
+    "\n",
+    "Objects of type `str` are used to represent strings of characters. \n",
+    "\n",
+    "Usually, these are represented in single quotes e.g. `name = 'Lydia'` or `rollNo = '345677'`. In the second case, a number is no longer numeric but instead it is a string of characters.\n",
+    "\n",
+    "You can use operators on objects of `str` type as well as `int` or `float`. \n",
+    "\n",
+    "`name= 'Lydia'`  \n",
+    "`name+name`  \n",
+    "\n",
+    "`name*4`\n",
+    "\n",
+    "While the operators `+` and `*` have more than one meaning in Python\n",
+    "\n",
+    "When applied to strings, `+` implies concatenation and `*` implies repetition. \n",
+    "\n",
+    "However, this is not the case for all operators, so when we try \n",
+    "\n",
+    "`name-4`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# try this out here\n",
+    "name='Lydia'\n",
+    "\n",
+    "type(name)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "`TypeError: unsupported operand type(s) for -: 'str' and 'int'`\n",
+    "\n",
+    "\n",
+    "Python says it cannot subtract an integer from a string and throws up a **TypeError**. This is because you tried to do something with two different **objects**: strings and integers.\n",
+    "\n",
+    "Such errors are a result of *type-checking*, which is an important part of preventing of mistakes during execution. They are especially helpful when we do not explicitly assign variable names any other identification.\n",
+    "\n",
+    "In order to check the type of the object you are working with, you can also use the `type` function. This will explicitly tell you what kind of object this is.\n",
+    "\n",
+    "E.g. `type(name)`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# try this out here"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Character encoding\n",
+    "\n",
+    "Unicode is a character coding system to support the digital processing and display written texts of all languages. In Python 3, Unicode is the default. Occasionally you might see the above sentence at the top of a Python program. \n",
+    "\n",
+    "`# -*- coding: utf-8 -*-`  \n",
+    "\n",
+    "In any case, it is possible to directly enter code like the following cases below. \n",
+    "\n",
+    "`language='اردو'`\n",
+    "\n",
+    "`city= 'मुंबई'`\n",
+    "\n",
+    "\n",
+    "Having UTF-8 as the default encoding greatly helps in multilingual language processing"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Strings as sequences\n",
+    "\n",
+    "Strings are also sequences over which we can perform certain operations\n",
+    "\n",
+    "1. Length of a string can be found using `len`\n",
+    "2. Indexation to extract characters from a string e.g. `'abc'[0]` yields `'a'` \n",
+    "3. Slicing to extract substrings from using slicing syntax `'abc'[1:3]`\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Try to run the following \n",
+    "mystring= 'abc'\n",
+    "mystring[1]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Indexation for sequences\n",
+    "\n",
+    "As strings are sequences, they support operations that allow for positional ordering of the items. \n",
+    "\n",
+    "Each character/item in a sequence is *indexed* starting from zero.\n",
+    "\n",
+    "\n",
+    "|c|h|e|e|s|e|  \n",
+    "\n",
+    "We can refer to the indices of a string by ‘cutting’ the word. Indexes\n",
+    "are where the knife will cut the word. Indices always begin with 0\n",
+    "\n",
+    "Try out the following code:-\n",
+    "\n",
+    "`word=\"cheese\"\n",
+    "word[0] #first item in the sequence\n",
+    "word[4]\n",
+    "word[-2]   #second to last item from the end         `   \n",
+    "`word[-1]  # the last item in word `\n",
+    "\n",
+    "\n",
+    "The value provided in the square brackets can be a literal (raw number) or it can even be a variable. \n",
+    "\n",
+    "`word[len(word)-1]`\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# try this out here\n",
+    "word='cheese'\n",
+    "word[len(word)-2]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "### Slicing Syntax for Sequences\n",
+    "\n",
+    "Slicing syntax is a useful functionality in Python. This is an extension of the indexing functionality, allowin us to extract entire pieces of the sequence by specifying its `start` and `end` values. E.g. `X[I:J]`\n",
+    "\n",
+    "`word='cheese'`  \n",
+    "`word[1:3]  #will include the 1st and 2nd character `\n",
+    "\n",
+    "The slicing syntax says that for `X[I:J]` *give me everything in this sequence from the offset I upto but not including offset J*. The resulting slice give us a new object\n",
+    "\n",
+    "\n",
+    "Slicing syntax has some common usage variations that you will encounter often in Python code. Sometimes the start and end offsets are not specified. Then by default the `I` value becomes zero, and the `J` value becomes the length of the sequence being sliced\n",
+    "\n",
+    "\n",
+    "` word[1:]    #everything after the 1st character        `  \n",
+    "` word[:3]     #everything upto but not including the 3rd item `  \n",
+    "` word[0:3]   #same as above                        `  \n",
+    "`word[:-1]    #everything but the last                             `  \n",
+    "`word[:]      #no slicing (same word)   `  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#try this here\n",
+    "word='cheese'\n",
+    "\n",
+    "new_word = word[:4] + 'z'\n",
+    "print(new_word)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Immutability\n",
+    "\n",
+    "In all of the string operations that we performed earlier, the original string does not change. Instead the slicing and indexing produces a new string as a result. One major reason for this is that strings are *immutable*, they cannot be changed in-place.\n",
+    "\n",
+    "If we type `word[4] = 'z' ` then we can get an error. Try this out below.\n",
+    "\n",
+    "However, it is possible to generate a new object using various string operations:-\n",
+    "\n",
+    "`new_word = word[:4] + 'z'`\n",
+    "\n",
+    "The property of immutability is related to particular types of objects. Both numbers and strings are immutable. However, some other object types are *mutable*, we will examine them a little later in the class."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# try this out here"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

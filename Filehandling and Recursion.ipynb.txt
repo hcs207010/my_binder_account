@@ -1,0 +1,443 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Filehandling\n",
+    "\n",
+    "\n",
+    "So far we have been assignment and the `input` function to get the values for our variables. But it is far commoner to read this information from a file (and also writing the output to the file). \n",
+    "\n",
+    "In order to use files to save information from one computation to another, Python gives us a **file handle**. \n",
+    "\n",
+    "```python\n",
+    "f1= open('Austen.txt', 'w')\n",
+    "```\n",
+    "The above code instructs the operating system to create a file called `Austen.txt` and return a **file handle** in the form of `f1`. The `w` implies that the file has been opened for *writing*. \n",
+    "\n",
+    "\n",
+    "```python\n",
+    "f1= open('Austen.txt','w')\n",
+    "for i in range(2):\n",
+    "    novel= input('enter your favourite Austen novel: ')\n",
+    "    f1.write(novel + '\\n')\n",
+    "    \n",
+    "f1.close()\n",
+    "```\n",
+    "\n",
+    "The above code opens a new file, asks the user for some input, *writes* to the file and then, importantly *closes* the file after writing. If the file is not closed properly, there is a chance that all the write commands do not get saved correctly.\n",
+    "note that `\\n` implies the addition of a newline character.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "enter your favourite Austen novel: Emma\n",
+      "enter your favourite Austen novel: Persuasion\n"
+     ]
+    }
+   ],
+   "source": [
+    "f1= open('Austen.txt','w')\n",
+    "for i in range(2):\n",
+    "    novel= input('enter your favourite Austen novel: ')\n",
+    "    f1.write(novel + '\\n')\n",
+    "    \n",
+    "f1.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It's also possible to open the file to *read* its contents. In this case, we will use the `'r'` argument to `open`. Once opened, we can print out the contents.\n",
+    "Note that we can directly use the **file handle** to iterate over the file. Internally, this is represented as a sequence.\n",
+    "\n",
+    "\n",
+    "```python\n",
+    "f2=open('Austen.txt','r')\n",
+    "\n",
+    "for line in f2:\n",
+    "    print(line)\n",
+    "\n",
+    "f2.close()\n",
+    "```\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Emma\n",
+      "Persuasion\n"
+     ]
+    }
+   ],
+   "source": [
+    "f2=open('Austen.txt','r')\n",
+    "\n",
+    "for line in f2:\n",
+    "    print(line) #print(line[:-1])\n",
+    "\n",
+    "f2.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## More on Functions\n",
+    "\n",
+    "We discuss a few more properties of scoping in functions"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "x inside def = 104\n",
+      "result =  104\n",
+      "x =  3\n",
+      "y =  2\n",
+      "z =  100\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "def f(x): #name x used as formal parameter\n",
+    "    y = 1\n",
+    "    x = x + y + z\n",
+    "    \n",
+    "    print('x inside def =', x)\n",
+    "    return x\n",
+    "\n",
+    "x=3\n",
+    "y=2\n",
+    "z=100\n",
+    "result=f(x)\n",
+    "\n",
+    "\n",
+    "print('result = ', result)\n",
+    "print('x = ', x)\n",
+    "print('y = ', y)\n",
+    "print('z = ', z)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As the variable `z` was assigned outside all `defs`, it is a **global** variable. In this case, Python will look for `z` within the local scope. It will not end up finding it. Next it will search in the extended scope (if there's a nested function) and next in the global scope. In the case of z, it found it in the global scope.\n",
+    "\n",
+    "BUT- something not so good happens in the function if I now try and re-assign it. \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "x inside def = 106\n",
+      "result =  106\n",
+      "x =  3\n",
+      "y =  2\n",
+      "z =  102\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "def f(x): \n",
+    "    y = 1\n",
+    "    z +=2 \n",
+    "    x = x + y + z\n",
+    "    \n",
+    "    print('x inside def =', x)\n",
+    "    return x\n",
+    "\n",
+    "x=3\n",
+    "y=2\n",
+    "z=100\n",
+    "result=f(3)\n",
+    "\n",
+    "\n",
+    "print('result = ', result)\n",
+    "print('x = ', x)\n",
+    "print('y = ', y)\n",
+    "print('z = ', z) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This happens because Python keeps track of assignment (or where you did the assignment first). In the case of `z`, this was in the *global* scope. However, now you are re-assigning the value of `z`. As soon as you make a re-assignment, Python automatically assumes that the variable is local. It looks for the value of `z` to add 2 to it-- but there's no previous *local* assignment of `z`. An unbound local error results. \n",
+    "\n",
+    "If we want to use the value of `z` inside the function and re-assign it (not just access it), then we need to tell Python explicitly to use the *global* variable `z`\n",
+    "\n",
+    "If we add the line `global z` to our function it will no longer complain.   \n",
+    "\n",
+    "**Note the value of z when we print it now!!!** We have explicitly told Python to ignore the scope of the variable, changed it within the function such that it will affect its value. Compare this with `y` and `x`.\n",
+    "\n",
+    "We can see how this can be potentially dangerous and this option should only be used very sparingly, and only when no other way of writing this program is possible. \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "x inside def = 106 y inside def =  1\n",
+      "result =  106\n",
+      "x =  3\n",
+      "y =  2\n",
+      "z =  102\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "def f(x): \n",
+    "    y = 1\n",
+    "    global z\n",
+    "    z +=2 \n",
+    "    x = x + y + z\n",
+    "    \n",
+    "    print('x inside def =', x, 'y inside def = ', y)\n",
+    "    return x\n",
+    "\n",
+    "x=3\n",
+    "y=2\n",
+    "z=100\n",
+    "result=f(x)\n",
+    "\n",
+    "\n",
+    "print('result = ', result)\n",
+    "print('x = ', x)\n",
+    "print('y = ', y)\n",
+    "print('z = ', z) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Recursive functions\n",
+    "\n",
+    "A recursive function is simply a function that calls itself. We can see an example of this in the Fibonacci sequence. Here each number in the sequence- except the first and second is the sum of the previous two.\n",
+    "\n",
+    "The first Fibonacci number is 0, the second is 1, third is 1 and fourth is 2.. `0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...` \n",
+    "\n",
+    "If we want to retrieve the value of the nth number in the Fibonacci sequence, then the following formula can be used:    \n",
+    "    x$_n$ = x$_{n-1}$ + x$_{n-2}$\n",
+    "\n",
+    "\n",
+    "![img](stickmen.png)\n",
+    "Image source: David Kopec, Classic Computer Science problems in Python\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#a first attempt\n",
+    "\n",
+    "def fib1(n):\n",
+    "    return fib1(n-1) + fib1(n-2)\n",
+    "\n",
+    "fib1(3)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here, `fib1` is running forever without any final result. Every call to fib1() results in 2 calls to fib(1), and the cycle never ends. This is bad news, because like an infinite loop, infinite recursion will also never stop.\n",
+    "\n",
+    "One of the reasons why this failed is because we did not supply a **base case**. These are cases that serve as a stopping point in a recursive function. Every time we call the function recursively for a smaller and smaller `n`, the function eventually reaches a **base case** which can be solved without recourse to recursion.\n",
+    "\n",
+    "The first 2 sequence values in a Fibonacci sequence are the special cases. Neither 0 nor 1 are the sum of the previous 2 numbers in the sequence. They're just the special 2 values.\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#fibonacci series 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...\n",
+    "\n",
+    "def fib2(n):\n",
+    "    \"\"\"Assumes an input of an integer, and \n",
+    "    returns the number corresponding to that index in the Fibonacci series\"\"\"\n",
+    "    if n<2: # base case\n",
+    "        return n\n",
+    "    #print(' fib2 is called with  ', n)\n",
+    "    return fib2(n-2) + fib2(n-1)\n",
+    "\n",
+    "def testFib(n):\n",
+    "    for i in range(n+1):\n",
+    "        print('fib of', i, '=', fib2(i))\n",
+    "\n",
+    "#do not try for values larger than 20-25\n",
+    "testFib(7)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "![img](tree.png)\n",
+    "\n",
+    "This becomes very tricky and difficult with values more than 10-15! The program will find it difficult once the number of function calls multiply in number."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##### Memoization\n",
+    "\n",
+    "In order to avoid this problem, the easy thing to do is store the result of the computational tasks as they are completed, so that it becomes unnecessary to re-compute the same result.\n",
+    "\n",
+    "In order to do this, we initialize a structured data type, a dictionary that maps the sequence id with the series number. We will understand this in detail when we introduce structured types.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "12586269025"
+      ]
+     },
+     "execution_count": 59,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#fibonacci series 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...\n",
+    "memo= {0:0,1:1}\n",
+    "\n",
+    "def fib_memo(n):\n",
+    "    if n not in memo:\n",
+    "        memo[n] = fib_memo(n-1) + fib_memo(n-2)\n",
+    "    return memo[n]\n",
+    "    \n",
+    "\n",
+    "fib_memo(50)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Another type of recursive function is the factorial function.\n",
+    "\n",
+    "It also has the 2 important parts needed to define a recursive function:-\n",
+    "\n",
+    "* base case: directly specifies the result for a special case (1! =1)\n",
+    "* recursive/inductive case that defines the answer in terms of some other answers\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# function without recursion\n",
+    "def factI(n):\n",
+    "    \"\"\"Assumes n an int > 0 Returns n!\"\"\"\n",
+    "    result = 1\n",
+    "    while n > 1:\n",
+    "        result = result * n\n",
+    "        n -= 1\n",
+    "    return result\n",
+    "\n",
+    "factI(50)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#function with recursion\n",
+    "\n",
+    "def factR(n):\n",
+    "    \"\"\"Assumes n an int > 0 Returns n!\"\"\"\n",
+    "    if n == 1:\n",
+    "        return n\n",
+    "    else:\n",
+    "        return n*factR(n - 1)\n",
+    "factR(50)\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

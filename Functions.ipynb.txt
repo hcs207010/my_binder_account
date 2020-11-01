@@ -1,0 +1,421 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Functions\n",
+    "\n",
+    "Loops, conditionals, assignment are the basic building blocks of your code. You can already write code to solve enough number of problems using these tools. \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sentence = 'I grew a ficus tree'\n",
+    "\n",
+    "words=''\n",
+    "ongoing_word=''\n",
+    "\n",
+    "        \n",
+    "for element in sentence:\n",
+    "    if element == ' ':\n",
+    "        \n",
+    "        words+=ongoing_word\n",
+    "        words+=','\n",
+    "        ongoing_word=''\n",
+    "    else:\n",
+    "        ongoing_word+=element\n",
+    "\n",
+    "\n",
+    "\n",
+    "words+=ongoing_word\n",
+    "\n",
+    "print(words)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "One of the drawbacks of writing a program like the one above is that it is not *self-contained*. It is not possible to do the following\n",
+    "* run it for a number of different sentences other than the one that's shown in the example\n",
+    "* we cannot use it for any kind of delimiter (other than space)- if there's a string separated by hyphens, our split function won't work for it.\n",
+    "\n",
+    "We would like to **generalize** and **reuse** our code. A function helps us to achieve this. \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Function definitions\n",
+    "\n",
+    "A function in Python has the following form\n",
+    "\n",
+    "```python\n",
+    "\n",
+    "def name_of_function(formal parameters of the function):\n",
+    "    body of function\n",
+    "\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def maxVal(x, y):\n",
+    "    if x> y:\n",
+    "        return x\n",
+    "    else:\n",
+    "        return y\n",
+    "\n",
+    "    \n",
+    "maxVal(5,8)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Some important things to note about the function above:-\n",
+    "\n",
+    "* functions will have to be invoked in order to be run, hence maxVal(5,8) is a function call/invocation\n",
+    "* formal parameters of the function in maxVal are x and y\n",
+    "    - when the function is called, the formal parameters in the function definition (x,y) are **bound** to the actual parameters/arguments of the function call. In this example, they are (5,8)\n",
+    "    - as soon as these formal parameters are bound, the first statement inside the function is executed\n",
+    "* a special statement `return` can be used in the body of the function (it is optional). On executing `return`, the function is terminated.\n",
+    "    - if there's nothing sent by the `return` statement, then the function simply returns a `None` value\n",
+    "* after the function is exited, the code following the function call is executed    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def printName(firstName, lastName, reverse):\n",
+    "    if reverse:\n",
+    "        print(lastName, firstName)\n",
+    "    else:\n",
+    "        print(firstName, lastName)\n",
+    "\n",
+    "printName('Lydia','Bennet', False)\n",
+    "printName(firstName='Lydia', lastName='Bennet', reverse=True)\n",
+    "printName(lastName='Bennet', firstName='Lydia', reverse=False)\n",
+    "printName(lastName='Bennet', False, firstName='Lydia')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The actual parameters can be bound to the formal parameters of the function via position alone i.e. order of the parameters given.\n",
+    "\n",
+    "It is also possible to provide **keyword arguments** like the ones shown in the second and third function call. In that case, there's no need to worry about position. \n",
+    "\n",
+    "Mixing keyword arguments with non-keyword arguments in random order would throw up an error. E.g. try  \n",
+    "`printName(lastName='Bennet', False, firstName='Lydia')`\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def printName(firstName, lastName, reverse=False):\n",
+    "    if reverse:\n",
+    "        print(lastName, firstName)\n",
+    "    else:\n",
+    "        print(firstName, lastName)\n",
+    "\n",
+    "printName('Lydia','Bennet')\n",
+    "printName('Lydia','Bennet',reverse=True)        \n",
+    "printName('Lydia','Bennet', True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Usually, keyword arguments are used only when some default parameters need to be overriden. Else, the function call takes place with fewer arguments being called.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Scoping\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "def f(x): #name x used as formal parameter\n",
+    "    y = 1\n",
+    "    x = x + y\n",
+    "    print('x inside def =', x)\n",
+    "    return x\n",
+    "\n",
+    "x=3\n",
+    "y=2\n",
+    "result=f(x)\n",
+    "\n",
+    "\n",
+    "print('result = ', result)\n",
+    "print('x = ', x)\n",
+    "print('y = ', y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Even though the actual and formal parameters might have the same name `x`, they're not the same variable\n",
+    "\n",
+    "Each function defines a new **namespace** which is also known as its **scope**. \n",
+    "\n",
+    "*Inside* the function, the parameter `x` and *local variable* `y` have scope only within the function `f`.\n",
+    "\n",
+    "*Outside* the function, the assignments or computations e.g. `x=x+y` have no effect on the variable assignments like `x=3` or `y=2`\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Specification\n",
+    "\n",
+    "We can now see if the original `split` function that we wrote can be turned into a function.\n",
+    "\n",
+    "What is the advantage of doing this?\n",
+    "\n",
+    "* This part of the code is now reasonably self-contained\n",
+    "* Making this into a function helps in abstracting away from the details. Every time I would like to split a string, I do not need to know how exactly it is done\n",
+    "* Once the specification of a function is provided, more than one person/programmer can work on implementing this function in an independent fashion\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 100,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'My,name,is,Khan'"
+      ]
+     },
+     "execution_count": 100,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "def mySplit(sequence, delim=' '):\n",
+    "    \"\"\"Assumes that sequence is a string and delim is a single whitespace by default. \n",
+    "    Returns a string with individual elements separated by commas\"\"\"\n",
+    "    words=''\n",
+    "    ongoing_word=''\n",
+    "        \n",
+    "    for element in sequence:\n",
+    "        if element == delim:\n",
+    "        \n",
+    "            words+=ongoing_word\n",
+    "            words+=','\n",
+    "            ongoing_word=''\n",
+    "        else:\n",
+    "            ongoing_word+=element\n",
+    "\n",
+    "    words+=ongoing_word\n",
+    "\n",
+    "    return words\n",
+    "\n",
+    "\n",
+    "mySplit('My name is Khan')\n",
+    "#mySplit('My_filenames_are_long', delim='_')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The above code is now far more encapsulated than the program we wrote earlier. We can now provide as input various types of strings, separated by more than one kind of delimiter, with space as the default. try other types of input for the function and see whether it works.\n",
+    "\n",
+    "The special text between the triple quotation marks is known as a `docstring`. These are used by convention to provide some specifications for the functions. If we type `help(mySplit)`, then Python will display the contents of the docstring. This will be the same for any type of function e.g. `help(abs)`. \n",
+    "\n",
+    "What does the *docstring* specify? \n",
+    "It contains information about some *assumptions* made in the function about the type of parameters that can be used to call the function. Also, some information on the default value of the parameter.\n",
+    "\n",
+    "Second, it contains information about its *guarantees*- what is the expected behaviour of the function once you have called it correctly?\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Modules\n",
+    "\n",
+    "So far, we have assumed that our entire program is stored within the same file. But as programs get larger, they will be stored across more than one file. Particularly, this is useful when these different parts are carrying out fairly different things- and sometimes are written by more than one person as well. \n",
+    "\n",
+    "A **module** is a `.py` file that contains some Python definitions and statements. \n",
+    "\n",
+    "\n",
+    "Below is a file titled `circle.py` containing the following code:-\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pi = 3.14159\n",
+    "def area(radius):\n",
+    "    return pi*(radius**2)\n",
+    "\n",
+    "def circumference(radius):\n",
+    "    return 2*pi*radius\n",
+    "\n",
+    "def sphereSurface(radius):\n",
+    "    return 4.0*area(radius)\n",
+    "\n",
+    "def sphereVolume(radius):\n",
+    "    return (4.0/3.0)*pi*(radius**3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can get access to a module via the `import` statement.\n",
+    "\n",
+    "```python\n",
+    "\n",
+    "import circle\n",
+    "pi=3\n",
+    "print(pi)\n",
+    "print(circle.pi)\n",
+    "print(circle.area(3))\n",
+    "print(circle.circumference(3))\n",
+    "```\n",
+    "\n",
+    "This will print\n",
+    "```\n",
+    "3\n",
+    "3.14159\n",
+    "28.27431\n",
+    "18.849539999999998\n",
+    "```\n",
+    "\n",
+    "* Note that pi is bound to a different object in this program (3), but within circle.py, it is different. This is reflected in the output of the print statements\n",
+    "* When `import circle` is executed, a binding for that entire module is created within the scope of the current program. Its namespace becomes accessible.\n",
+    "* In the importing context, the dot notation indicates that we're referring to a name in the imported module\n",
+    "* This avoids any accidental clash with names in the current program that might be identical with those in the module\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import circle\n",
+    "\n",
+    "pi=3\n",
+    "print(pi)\n",
+    "print(circle.pi)\n",
+    "print(circle.area(3))\n",
+    "print(circle.circumference(3))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It's also possible to import specific names from a module using `from`\n",
+    "\n",
+    "`from circle import area`\n",
+    "\n",
+    "Internally, an import statement first tries to find the module's file, compile it to byte code (if run for the first time) and then runs the code to build the required objects. \n",
+    "\n",
+    "Compiled files are segregated in a separate `_pycache_` directory. Next time the import module is used, there's no need to compile again.\n",
+    "\n",
+    "\n",
+    "Many packages will not necessarily be installed in your file directory, for these, python standardly searches a `module search path`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Exercise\n",
+    "\n",
+    "\n",
+    "\n",
+    "1. Write a function called `isIn` which takes two strings as its arguments and returns `True` if either string occurs anywhere in the other e.g. `boy` in `boycott` and `False` otherwise i.e. if the given strings are `boy` and `girl`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

@@ -1,0 +1,328 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Loops and Iteration\n",
+    "\n",
+    "\n",
+    "`assumes you know the basics about variables and branching/conditionals-if not turn back to those notebooks`\n",
+    "\n",
+    "One of the important requirements of computational tasks is iteration. We have already seen the advantages of using conditionals. for instance, a program might want to print the word `dawg` and will ask the user how many times he wants to print it \n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "numwords = int(input('How many times should I print the word dawg? '))\n",
+    "toPrint = ''\n",
+    "if numwords == 1:\n",
+    "    toPrint = 'dawg'\n",
+    "elif numwords == 2:\n",
+    "    toPrint = 'dawgdawg'\n",
+    "elif numwords == 3:\n",
+    "    toPrint = 'dawgdawgdawg'\n",
+    "\n",
+    "print(toPrint)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "But the number of conditional statements would need to be huge to account for all possible user inputs. Rather, one might want functionality that does something like this:\n",
+    "\n",
+    "`Accept input for number of times a word must be printed`  \n",
+    "`initialize toPrint variable`  \n",
+    "`concatenate word to print dawg numXs number of times`  \n",
+    "`print the result`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### While loop\n",
+    "\n",
+    "In order to carry out this type of *iteration*, we have the *for* loop.\n",
+    "\n",
+    "It is similar to a conditional statement in that it begins with a **test**. If the test evaluates to `True`, the program executes the loop once. Then it goes back and re-evaluated that test...and continues until the test evaluates to `False`. The diagram below (source: Guttag, pg 23) shows this in a diagram.\n",
+    "\n",
+    "![Iteration (from Guttag, pg 23)](flow-chart-guttag.png)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "numwords = int(input('How many times should I print the word dawg? '))\n",
+    "toPrint = ''\n",
+    "iterations=1\n",
+    "\n",
+    "while iterations<=numwords:    \n",
+    "    toPrint += 'dawg'\n",
+    "    iterations=iterations+1\n",
+    "    \n",
+    "print(toPrint)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A *looping* mechanism as shown in the example above is helpful to do the same thing many times. There are some similarities with conditionals-the loop using the `while` statement begins with a **test**:-\n",
+    "\n",
+    "`while iterations<=numwords:`  \n",
+    "\n",
+    "If the test evaluates to `True`, then the program enters the body of the loop, executes the code in it once and then goes back to the `while` statement. If the statement is still true, the process is repeated until the test is `False`.\n",
+    "\n",
+    "We can print out the values of each variable in the loop to understand how this is working:-\n",
+    "\n",
+    "| numwords    | iterations  | toPrint |\n",
+    "| ----------- | ----------- |-------  | \n",
+    "| 3           | 1           |  dawg   |\n",
+    "| 3           | 2           |  dawgdawg |\n",
+    "| 3           | 3           |  dawgdawgdawg|\n",
+    "\n",
+    "\n",
+    "The third time the test is evaluated it returns `False` as iterations is now 4, which does not pass the `while` condition. The loop is exited and `toPrint` is printed to stderr.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#A while loop can also iterate over a range of numbers e.g. to calculate whether there are numbers divisible by 11.\n",
+    "x=100\n",
+    "\n",
+    "while x>0:\n",
+    "    if x%11 == 0:\n",
+    "        print('The number divisible by 11 is',x)\n",
+    "        \n",
+    "    x=x-1\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "While writing a loop, there must be a valid *decrementing* function, which at some point is going to stop the execution of a loop. What is the decrementing function in the program above? \n",
+    "It is `x-0`. When its value becomes 0, then the loop will stop. The value of `x-0` is 100 at the beginning of the loop and goes on decreasing as the program executes.  \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "The below program takes as input 5 integer numbers and outputs the largest number. What happens to the values of lastnum and toPrint in the loop?\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "toPrint=''\n",
+    "lastnum=0\n",
+    "outeriter=1\n",
+    "while outeriter<=5:\n",
+    "    inputnum= int(input('enter an integer number '))\n",
+    "    outeriter+=1\n",
+    "    if inputnum> lastnum: \n",
+    "            toPrint = inputnum\n",
+    "            lastnum= inputnum\n",
+    "\n",
+    "\n",
+    "print(toPrint)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Exiting a loop\n",
+    "\n",
+    "\n",
+    "The program below will work for most values of `x`, where `x>=1`. If `x=0`, then the program won't enter inside the while loop at all. But what happens when `x<0`? Try it out:-\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Square an integer, the hard way (from Guttag, pg 22)\n",
+    "x = 4\n",
+    "ans = 0\n",
+    "itersLeft = x\n",
+    "while (itersLeft != 0):\n",
+    "    ans = ans + x\n",
+    "    itersLeft = itersLeft - 1\n",
+    "    \n",
+    "\n",
+    "\n",
+    "print(str(x) + '*' + str(x) + ' = ' + str(ans))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now, each time `itersLeft` gets updated, the value will become lesser than 0, and the loop executes forever. Not a good thing to happen to the program. Guttag suggests using the `abs` function to initialize itersLeft e.g. \n",
+    "`itersLeft = abs(x)` to correct this problem. In order to print the square as a non-negative number, `ans=ans+abs(x)` will do the right thing. \n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## For loops\n",
+    "\n",
+    "\n",
+    "Loops with `while` are actually far less common than `for` loops which have the general format of\n",
+    "\n",
+    "    for variable in sequence:\n",
+    "        code block\n",
+    "\n",
+    "The variable that follows `for` will be bound to the first item in the sequence (typically, this is a `list`, but we'll get to these a little later). The for loop will iterate through every item in the sequence, executing the code block under it, until the sequence is exhausted. We can use the function `range` to simulate such a sequence.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for i in range(0, 5):\n",
+    "    print(i)\n",
+    "\n",
+    "l=range(5,40,10)\n",
+    "print(l)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that `range` takes three arguments *start*, *stop* and *step*. The expression `range(5,40,10)` will give us a sequence like 5,15,25,35. The value of the *step* arguement can also be negative, e.g. `range(100,10,-20)`gives us 100, 80, 60, 40, 20.\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The `for` statement can also be used in conjunction with `in` to iterate over the characters in a sequence like a *string*. For example, \n",
+    "\n",
+    "```\n",
+    "total = 0\n",
+    "for c in '12345678':\n",
+    "    total = total + int(c)\n",
+    "print(total)\n",
+    "```\n",
+    "\n",
+    "This will treat the string as a sequence, iterate over it one by one and print the total, after converting the string to an integer.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Break and continue\n",
+    "\n",
+    "In order to have more power over the flow of the program, there are two other statements that can be used\n",
+    "\n",
+    "`break` statement, breaks out of the closest enclosing `for` or `while` loop.\n",
+    "\n",
+    "`continue` statement jumps to the top of the closest enclosing loop\n",
+    "\n",
+    "\n",
+    "The `while True` part of the code says that the loop will iterate forever, unless specifically asked to stop. Upon encountering the `if` condition, it will break out of the loop and stop asking for the name and age information\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# example from Learning Python, 5e\n",
+    "while True:\n",
+    "\n",
+    "    name = input('Enter name:')\n",
+    "    if name == 'stop': \n",
+    "        break\n",
+    "\n",
+    "    age = input('Enter age: ')\n",
+    "\n",
+    "    print('Hello', name, '=>', int(age) ** 2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#code from Python documentation\n",
+    "for num in range(2, 10):\n",
+    "    if num % 2 == 0:\n",
+    "        print(\"Found an even number\", num)\n",
+    "        continue\n",
+    "    print(\"Found a number\", num)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

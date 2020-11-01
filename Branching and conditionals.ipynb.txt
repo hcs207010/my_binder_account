@@ -1,0 +1,286 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Branching programs\n",
+    "\n",
+    "(continuation of Guttag, Ch 2)\n",
+    "\n",
+    "So far, the type of code we have been writing has been **straight-line programs**. The statements are executed serially and then stopped when they end. The things that you can do with such types of programs are quite limited. **Branching programs** give us much more power.\n",
+    "\n",
+    "### Conditionals\n",
+    "\n",
+    "The most common and simple type of branching program is the conditional statement. This comprises 3 parts\n",
+    "\n",
+    "* a test that evaluated to `True` or `False`\n",
+    "* a code that gets executed if the test is `True`\n",
+    "* an optional code that is executed if the test is `False`\n",
+    "\n",
+    "\n",
+    "\n",
+    "![guttag](flowchartcondition.png)\n",
+    "\n",
+    "\n",
+    "When we use branching programs, the syntax looks slightly different\n",
+    "```\n",
+    "if <condition>:\n",
+    "    <some code> \n",
+    "else:\n",
+    "    <some code>      \n",
+    "```\n",
+    "\n",
+    "The `else` condition is optional, so it's possible to have only\n",
+    "\n",
+    "\n",
+    "```\n",
+    "if <condition>:\n",
+    "    <some code> \n",
+    "\n",
+    "```\n",
+    "\n",
+    "An `if ...` statement is a **conditional** and will select an action to be performed on the basis of some truth value. It is a way of formulating a logical test in Python. `if` is used to check for comparison, equality and truth values.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "name = 'python'\n",
+    "if name=='python':\n",
+    "     print('monty')\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "name= 'pythons'\n",
+    "if name=='python':\n",
+    "     print('monty')\n",
+    "else:\n",
+    "     print('snake')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "\n",
+    "\n",
+    "Statements inside the `if` condition are demarcated via indentation. Indentation levels are very important in Python! This is because the language does not use braces or other explicit ways of marking a block of code. The way whitespaces must be used is specified in the Python style guide. (If you are using Jupyter notebook with the Python kernel --as we are now, the four spaces will automatically appear after a : is used in an `if` statement, nevertheless, the convention is important to keep in mind).\n",
+    "\n",
+    "According to the Python style guide. ([PEP](https://www.python.org/dev/peps/pep-0008/))\n",
+    "\n",
+    "* Four spaces per indentation level\n",
+    "* No hard tabs (Don't use the TAB key!)\n",
+    "* Never mix tabs and spaces ! o_O"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Below is an example of an `if` statement with all its optional parts present. `elif` stands for *else-if*.  \n",
+    "`if`-`elif`-`else` are all associated and are *indented* at the same level. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x=4\n",
+    "\n",
+    "\n",
+    "if x%2 == 0:\n",
+    "    if x%3 == 0:\n",
+    "        print('Divisible by 2 and 3')\n",
+    "    else:\n",
+    "        print('Divisible by 2 and not by 3')\n",
+    "elif x%3 == 0:\n",
+    "\n",
+    "    print('Divisible by 3 and not by 2')\n",
+    "\n",
+    "else:\n",
+    "    print('Not divisible by 2 or 3')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Input function \n",
+    "\n",
+    "\n",
+    "Python has an `input` function to get input directly from the user. As an argument, it will take a string, display it as a prompt and wait for a response.\n",
+    "\n",
+    "`>>> name = input('Enter your name')\n",
+    "Enter your name: Mr Boots`\n",
+    "\n",
+    "Note that the input entered by the user is always treated as a string!\n",
+    "\n",
+    "`>>>n = input('Enter a number')\n",
+    "Enter a number: 3`\n",
+    "`>>>print(type(n))`\n",
+    "`<type 'str'>`\n",
+    "\n",
+    "If we would like to use this function in the program above, we will have to convert the type `str` into `int`.\n",
+    "This is called `type conversion` which can be done for all object types in Python using `int()`, `float()`, `str()` and so on. \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "# with input statement asking the user for a number\n",
+    "x = int(input('Enter a number  :')) \n",
+    "\n",
+    "if x%2 == 0:\n",
+    "    if x%3 == 0:\n",
+    "        print('Divisible by 2 and 3')\n",
+    "    else:\n",
+    "\n",
+    "        print('Divisible by 2 and not by 3')\n",
+    "elif x%3 == 0:\n",
+    "\n",
+    "    print('Divisible by 3 and not by 2')\n",
+    "    \n",
+    "else:\n",
+    "    print('Not divisible by 2 or 3')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The `if ` statement can be used along with multiple `elif` statements, as seen below:-"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x= int(input('Enter a number: '))\n",
+    "\n",
+    "if x<0:\n",
+    "    x=0\n",
+    "    print('Negative changed to zero')\n",
+    "elif x == 0:\n",
+    "    print('Zero')\n",
+    "elif x == 1:\n",
+    "    print('Single')\n",
+    "else:\n",
+    "    print('More')\n",
+    "    \n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can also use the `if` statement in conjunction with various *string methods* to check for the properties of strings.\n",
+    "\n",
+    "`>>>word='Python'`  \n",
+    "`>>>word.isupper()`  \n",
+    "`False`\n",
+    "\n",
+    "Other useful methods are `str.islower()`, `str.endswith()`, `str.istitle()`, `str.lower()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "word='grow'\n",
+    "\n",
+    "if word.endswith('ing'):\n",
+    "    print('Yes')\n",
+    "else:\n",
+    "    print('No')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can also use `if`in order to check for membership using the `in` and `not in` operators\n",
+    "\n",
+    "\n",
+    "```\n",
+    "word = 'boycott' \n",
+    "if 'boy' in word:\n",
+    "    print('boy is present')\n",
+    "```    \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "word = 'python'\n",
+    "if 'i' not in word:\n",
+    "    print('i is not present')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The `is` or `is not` operators are also useful in determining identity.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = 5\n",
+    "if type(x) is int:\n",
+    "    print('true')\n",
+    "else:    \n",
+    "    print('false')"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
